@@ -1,0 +1,17 @@
+{
+  "name": "soap",
+  "description": "soap assignment of the cloud-computing lecture",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=0.6.1",
+		"npm" : ">=1.1.0"
+  },
+  "dependencies": {
+		"node-expat" : ">0.1" 
+  },
+  "subdomain": "bastinat0r",
+  "scripts": {
+    "start": "node ./soap.js"
+  }
+}
