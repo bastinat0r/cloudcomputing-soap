@@ -31,14 +31,16 @@ var srv = http.createServer(function(req, res) {
 		util.puts(soapRes.statusCode);
 		util.puts(JSON.stringify(soapRes.headers));
 		soapRes.on('data', function(chunk) {
-			answer = answer + chunk;
-		});
-		soapReq.on('end', function() {
-			res.write(answer);
+			res.writeHead(200, {"Content-Type" : "text/plain"});
+			var response = "" + /<GetTheSecretPhraseResult>[^<]*/.exec("" + chunk);
+			response = response.replace(/<GetTheSecretPhraseResult>/, '');
+			res.end(response);
+			util.puts(response);
 		});
 	});
-	soapReq.write("<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"><s:Header><password>geheim</password></s:Header><s:Body><GetTheSecretPhrase xmlns=\"http://tempuri.org/\"/></s:Body></s:Envelope>");
+	soapReq.write("<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"><s:Header><avada>kedavra</avada><password>geheim</password></s:Header><s:Body><GetTheSecretPhrase xmlns=\"http://tempuri.org/\"/></s:Body></s:Envelope>");
 	soapReq.on('error', util.puts);
 	soapReq.end();
 
 });
+srv.listen(8080);
